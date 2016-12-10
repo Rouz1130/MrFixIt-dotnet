@@ -16,6 +16,7 @@ namespace MrFixIt.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            // if user is authenticaded log in it will give you information about the user.
             if (User.Identity.IsAuthenticated)
             {
                 var thisWorker = db.Workers.FirstOrDefault(item => item.UserName == User.Identity.Name);

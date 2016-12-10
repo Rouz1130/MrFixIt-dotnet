@@ -11,6 +11,7 @@ namespace MrFixIt.Controllers
     public class AboutController : Controller
     {
         // GET: /<controller>/
+        //Directs route too view index file in about folder
         public IActionResult Index()
         {
             return View();

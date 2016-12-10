@@ -1,17 +1,19 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@*We need the layout file link here its missing*@ 
 @{
     ViewBag.Title = "Register";
 }
 
+@*we add @using below too access user.identity//properties bleow User.Identity and isAuthenticated below in if else*@
 @using System.Security.Claims
 
 <div class="text-center">
     <h2>Mr. Fix-It</h2>
     <h3>This is Mr. Fix-It. If this is your first visit, please visit our @Html.ActionLink("About Page", "Index", "About")</h3>
 </div><hr />
-@if (User.Identity.IsAuthenticated)
+
+@*//if else statment to display greeting to user if they succedded
+else statment if user was not succesfull with links back to register and log in*@
+@if (User.Identity.IsAuthenticated) 
 {
     <h4>Hello @User.Identity.Name!</h4>
 

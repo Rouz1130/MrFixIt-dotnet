@@ -28,7 +28,8 @@ namespace MrFixIt
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {
+        {   // configureservices method is were we configure framework services to our application. 
+            // adds the MVC service to the project.
             services.AddMvc();
 
             services.AddEntityFramework()
@@ -40,17 +41,24 @@ namespace MrFixIt
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // configure method is were we tell ASP.NET what frameworks we want to use in our app.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
+        {   
+            // Order matters and the static file needs to run before app.run.
+           // static file here allows us to use our static files example anything in our root folder like css, Js , img etc.
             app.UseStaticFiles();
+
             loggerFactory.AddConsole();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            // allows access for Identity = authentication
             app.UseIdentity();
+            //tells our app that we will be using MVC framework
             app.UseMvc(routes =>
             {
+                //routes are default page rather than home its account in this case, any parameters will be passed as an id.
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Account}/{action=Index}/{id?}");

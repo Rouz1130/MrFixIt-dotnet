@@ -12,7 +12,8 @@ namespace MrFixIt.Controllers
 {
     public class WorkersController : Controller
     {
-        private MrFixItContext db = new MrFixItContext();
+        // notes for context in previous controller but we are defining context for the database.
+        private MrFixItContext db = new MrFixItContext(); // its always private though because we dont ever need to change info.
         // GET: /<controller>/
         public IActionResult Index()
         {

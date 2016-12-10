@@ -1,13 +1,19 @@
-﻿@{
+﻿@*No link to the layout page it will have to be added once all comments are finished*@
+@{
     ViewBag.Title = "Register";
 }
 
+@* using is going to use model, the @modelRegisterViewModel is going to use that file for this page.*@
 @using MrFixIt.ViewModels
 
+@*// the model for ViewModel /register*@
 @model RegisterViewModel
 
+@*the actions for this page go in the accountController.*@
 <h2>Register a new worker</h2>
 <hr />
+
+@*A form asking for email , password, confrim password*@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
     @Html.LabelFor(m => m.Email)

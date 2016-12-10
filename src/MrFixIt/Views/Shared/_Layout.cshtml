@@ -1,13 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@*this is a layout page its our template for all our views file. 
+we can have more than one layout pages if we lake.*@
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @*// whenever we use a tag that refrences our project like the script tag below which wants access to our JS folder we need a tilda attribute in razor syntax also same with our style sheet css*@
     <script src="~/js/scripts.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/styles.css" />
-     <title>@ViewBag.Title</title>
+     <title>@ViewBag.Title</title> /@*/ this is our title at each views page were we can change it in other files*@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -24,9 +27,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
+                        @*// these are links in our navbar we use razor syntax instead of html <a href=>*@  
+                        @*about is whats displayed on the page, index is the file we want it too link too , and about is the controller*@
                         @Html.ActionLink("About", "Index", "About")
                     </li>
-                    <li>
+                    <li>                @*3 parameters first is displayed on page, second is the file, third is the controller*@.
                         @Html.ActionLink("Hire Us", "Index", "Jobs")
                     </li>
                     @if (User.Identity.IsAuthenticated)
@@ -53,9 +58,10 @@
 
 
     <div class="container">
-        @RenderBody()
+        @RenderBody() @*//Razor syntax its like a contentPlaceHolder. Also indicates where view templates that are based on master layout-file should "fill" in the body Content.*@
     </div>
 </body>
+@*//These script tags shoud be a top of the page in between the head tag*@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>
