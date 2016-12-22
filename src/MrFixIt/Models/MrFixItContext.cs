@@ -12,7 +12,7 @@ namespace MrFixIt.Models
         //virtual is to link both jobs and workers models.
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Worker> Workers { get; set; }
-        /
+       
 
         //connection string too database also another connection in appsettings.JSON file
         // last step for the connection string is too add services in the startup for entity framwoerk *meaning our database.

@@ -1,15 +1,22 @@
 ﻿var test = "it works";
 
+//claim job function
 
-$(".job-claim").submit(function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: "/Claim/Jobs",
-        type: "POST",
-        dataType: "json",
-        data: $(this).serialize(),
-        success: function (result) {
-            $("#Claimed").html(result);
-        }
+$(function () {
+
+    $(".claimjob").click(function () {
+        alert("clicked");
+        var jobid = $(this).siblings('.ThisJobId').val();
+        var username = $('.ThisUserName-' + jobid).val();
+        $(".HideAfterClick-" + jobid).hide();
+
+        $.ajax({
+            url: "/Jobs/Claim",
+            data: { jobId: jobid, userName: username },
+            type: 'GET',
+            success: function (result) {
+                $('.ClaimedJob-' + jobid).html(result);
+            }
+        });
     });
 });

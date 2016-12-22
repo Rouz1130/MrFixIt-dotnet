@@ -12,7 +12,7 @@ namespace MrFixIt.Controllers
 {
     public class JobsController : Controller
     {
-        // giving instanitaing the definiton for context for the database.
+        //define db for this context
         private MrFixItContext db = new MrFixItContext();
 
         // GET: /<controller>/
@@ -20,9 +20,10 @@ namespace MrFixIt.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-            // if else statment if user is is correct/autheticated it will return to a a list the job assoiated with he user.
-            return View(db.Jobs.Include(i => i.Worker).ToList());
-            }else
+
+                return View(db.Jobs.Include(i => i.Worker).ToList());
+            }
+            else
             {
                 return RedirectToAction("Public");
             }
@@ -38,33 +39,23 @@ namespace MrFixIt.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Create(Job job)
         {
-            // the public IAction Result create (Job job)this post for both the create method allows to create a job
-            // the HttpPost defines a job and allows us to add and save it too the database.
             db.Jobs.Add(job);
-            //adds to database
             db.SaveChanges();
-            //saves to database
             return RedirectToAction("Index");
         }
+       
+        public IActionResult Claim(int jobId, string userName)
+        {
+            var job = db.Jobs.FirstOrDefault(items => items.JobId == jobId);
+            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == userName);
 
-        // this is a route to the claim page and to list a job a user wants.
-        public IActionResult Claim(int id)
-        {
-            var thisItem = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            return View(thisItem);
-        }
-        // corrsponding post action  for claim method. seems might have to expand on the code down the line.
-        [HttpPost]
-        public IActionResult Claim(Job job)
-        {
-            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
-            db.Entry(job).State = EntityState.Modified; //  allows to update database for the job that was was claimed for the user. 
+            db.Entry(job).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Content("You've claimed this job", "text/plain");
         }
     }
 }

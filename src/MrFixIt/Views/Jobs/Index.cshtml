@@ -1,10 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@*this page is /jobs/index*@
 
-@*no layout page and title present*@
+
+@{
+    ViewData["Title"] = "Jobs-Job list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="text-center">
     <h3>Our Current Jobs</h3>
@@ -19,7 +19,13 @@
         </ul>
         @if (Job.Worker == null)
         {
-        <li class="btn">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
+            <li class="HideAfterClick-@Job.JobId">
+                <button class="claimjob">Claim</button>
+                <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+                <input type="hidden" value="@User.Identity.Name" class="ThisUserName-@Job.JobId" />
+            </li>
+            <div class="ClaimedJob-@Job.JobId"></div>
+
         }
         else
         {
@@ -31,4 +37,3 @@
 
     <hr />
 }
-
